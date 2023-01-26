@@ -23,6 +23,7 @@
 
     <ul class="jpfaqList">
         <f:for each="{questions}" as="question">
+
             <n:excludeAlreadyDisplayedQuestions question="{question}"/>
             <f:render partial="Question/Question" arguments="{_all}"/>
         </f:for>

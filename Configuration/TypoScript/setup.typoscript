@@ -91,6 +91,8 @@ page {
             excludeFromConcatenation = 1
         }
         tx_jpfaq = {$plugin.tx_jpfaq_faq.settings.js}
+        tx_jpfaq_vanilla = {$plugin.tx_jpfaq_faq.settings.js_vanilla}
+
     }
 
     includeCSS {
