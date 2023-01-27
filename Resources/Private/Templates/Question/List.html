@@ -4,8 +4,9 @@
 <f:layout name="Default"/>
 
 <f:section name="main">
+
     <f:if condition="{showSearchForm}">
-        <f:render partial="SearchForm" arguments="{showNumberOfResults: showNumberOfResults}"/>
+        <f:render partial="SearchForm" arguments="{showNumberOfResults: showNumberOfResults, uid: currentUid}"/>
     </f:if>
 
     <h2 class="jpfaqCategory" itemprop="about">
@@ -21,7 +22,7 @@
         </div>
     </div>
 
-    <ul class="jpfaqList">
+    <ul class="jpfaqList accordion">
         <f:for each="{questions}" as="question">
 
             <n:excludeAlreadyDisplayedQuestions question="{question}"/>
