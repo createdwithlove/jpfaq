@@ -55,7 +55,7 @@ class AccordionItem {
         instance.open = open;
 
         // handle DOM updates
-        instance.buttonEl.setAttribute("aria-expanded", "${open}");
+        instance.buttonEl.setAttribute("aria-expanded", open);
         instance.contentEl.classList.toggle("show", open);
     }
 
