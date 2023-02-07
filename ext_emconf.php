@@ -7,10 +7,7 @@ $EM_CONF[$_EXTKEY] = array(
     'author' => 'Jacco van der Post',
     'author_email' => 'jacco@id-webdesign.nl',
     'state' => 'stable',
-    'uploadfolder' => false,
-    'createDirs' => '',
-    'clearCacheOnLoad' => 0,
-    'version' => '11.6.0',
+    'version' => '11.7.0',
     'constraints' =>
         array(
             'depends' =>
