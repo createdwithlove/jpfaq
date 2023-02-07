@@ -2,13 +2,14 @@
 
 namespace Jp\Jpfaq\Controller;
 
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use Jp\Jpfaq\Domain\Repository\CategoryRepository;
 use Psr\Http\Message\ResponseInterface;
 
 /**
  * CategoryController
  */
-class CategoryController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+class CategoryController extends ActionController
 {
     /**
      * @var CategoryRepository

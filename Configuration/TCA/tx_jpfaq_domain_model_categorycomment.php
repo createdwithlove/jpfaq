@@ -5,7 +5,6 @@ return [
         'label' => 'name',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'cruser_id' => 'cruser_id',
         'default_sortby' => 'crdate DESC',
         'versioningWS' => true,
         'languageField' => 'sys_language_uid',
@@ -121,7 +120,8 @@ return [
                 'type' => 'text',
                 'cols' => 40,
                 'rows' => 15,
-                'eval' => 'trim,required'
+                'eval' => 'trim',
+                'required' => true
             ]
         ],
         'finfo' => [

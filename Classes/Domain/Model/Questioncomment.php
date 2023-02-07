@@ -1,6 +1,10 @@
 <?php
 namespace Jp\Jpfaq\Domain\Model;
 
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Annotation\Validate;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
 /***
  *
  * This file is part of the "jpFAQ" Extension for TYPO3 CMS.
@@ -11,11 +15,10 @@ namespace Jp\Jpfaq\Domain\Model;
  *  (c) 2018
  *
  ***/
-
 /**
  * Questioncomment
  */
-class Questioncomment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+class Questioncomment extends AbstractEntity
 {
     /**
      * name
@@ -35,7 +38,7 @@ class Questioncomment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * comment
      *
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
+     * @Validate("NotEmpty")
      */
     protected $comment = '';
 
@@ -56,8 +59,8 @@ class Questioncomment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * question
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Jp\Jpfaq\Domain\Model\Question>
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
+     * @var ObjectStorage<Question>
+     * @Lazy
      */
     protected $question = null;
 
@@ -77,7 +80,7 @@ class Questioncomment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     protected function initStorageObjects()
     {
-        $this->question = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->question = new ObjectStorage();
     }
 
     /**
@@ -167,7 +170,7 @@ class Questioncomment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the question
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Jp\Jpfaq\Domain\Model\Question> $question
+     * @return ObjectStorage<Question> $question
      */
     public function getQuestion()
     {
@@ -177,7 +180,7 @@ class Questioncomment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the question
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Jp\Jpfaq\Domain\Model\Question> $question
+     * @param ObjectStorage<Question> $question
      * @return void
      */
     public function setQuestion($question)
