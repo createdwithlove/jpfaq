@@ -10,6 +10,7 @@ namespace Jp\Jpfaq\ViewHelpers;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use Jp\Jpfaq\Domain\Model\Question;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
@@ -27,7 +28,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
  * </output>
  *
  */
-class ExcludeAlreadyDisplayedQuestionsViewHelper extends \TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper
+class ExcludeAlreadyDisplayedQuestionsViewHelper extends AbstractViewHelper
 {
     use CompileWithRenderStatic;
 

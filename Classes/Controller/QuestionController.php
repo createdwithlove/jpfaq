@@ -2,6 +2,7 @@
 
 namespace Jp\Jpfaq\Controller;
 
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use Jp\Jpfaq\Domain\Model\Question;
 use Jp\Jpfaq\Domain\Repository\CategoryRepository;
 use Jp\Jpfaq\Domain\Repository\QuestionRepository;
@@ -17,7 +18,7 @@ use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
 /**
  * QuestionController
  */
-class QuestionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+class QuestionController extends ActionController
 {
     protected QuestionRepository $questionRepository;
 

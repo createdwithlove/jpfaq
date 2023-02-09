@@ -1,6 +1,8 @@
 <?php
 namespace Jp\Jpfaq\Domain\Repository;
 
+use TYPO3\CMS\Extbase\Persistence\Repository;
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 /***
  *
  * This file is part of the "jpFAQ" Extension for TYPO3 CMS.
@@ -11,16 +13,15 @@ namespace Jp\Jpfaq\Domain\Repository;
  *  (c) 2016
  *
  ***/
-
 /**
  * The repository for Categories
  */
-class CategoryRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
+class CategoryRepository extends Repository
 {
     /**
      * @var array
      */
     protected $defaultOrderings = array(
-        'sorting' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
+        'sorting' => QueryInterface::ORDER_ASCENDING
     );
 }

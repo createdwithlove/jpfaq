@@ -2,6 +2,9 @@
 
 namespace Jp\Jpfaq\Controller;
 
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
+use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 use Jp\Jpfaq\Domain\Repository\CategorycommentRepository;
 use Jp\Jpfaq\Domain\Repository\CategoryRepository;
 use Jp\Jpfaq\Service\SendMailService;
@@ -13,7 +16,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Http\ForwardResponse;
 
-class CategorycommentController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+class CategorycommentController extends ActionController
 {
     protected CategorycommentRepository $categorycommentRepository;
 
@@ -98,8 +101,8 @@ class CategorycommentController extends \TYPO3\CMS\Extbase\Mvc\Controller\Action
      *
      * @return ResponseInterface
      *
-     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
+     * @throws StopActionException
+     * @throws IllegalObjectTypeException
      */
     public function addCommentAction(
         Categorycomment $newCategorycomment,

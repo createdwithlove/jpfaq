@@ -1,20 +1,27 @@
 "use strict";
 
 function ajaxPost(loadUri, contentContainer) {
+
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", loadUri, true);
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            // contentContainer.innerHTML += xhr.response;
-            // contentContainer.style.display = "block";
-            console.log(xhr.status + ' ' + xhr.responseText);
-        } else if (xhr.readyState === 4) {
-            // contentContainer.innerHTML += "fail";
-            console.log(xhr.status + ' ' + xhr.responseText);
-        }
-    };
-    xhr.send(JSON.stringify({}));
+
+    return new Promise((resolve, reject) => {
+
+        xhr.onreadystatechange = (e) => {
+            if (xhr.readyState !== 4) {
+                return;
+            }
+
+            if (xhr.status === 200) {
+                resolve(xhr.responseText);
+            } else {
+                console.warn('request_error');
+            }
+        };
+
+        xhr.open('POST', loadUri);
+        xhr.send();
+
+    });
 }
 
 
@@ -74,11 +81,14 @@ class AccordionItem {
 
         this.rateEl.forEach((item) => {
             item.addEventListener("click", function (e) {
-                const loadUri = e.target.getAttribute('href') + jpfaqCommentPageType
-                console.log(loadUri)
-
-                ajaxPost(loadUri)
                 e.preventDefault()
+                const loadUri = e.target.getAttribute('href') + jpfaqCommentPageType
+
+
+                
+                ajaxPost(loadUri).then(res => console.log("The result is", res));
+
+
             });
         })
 

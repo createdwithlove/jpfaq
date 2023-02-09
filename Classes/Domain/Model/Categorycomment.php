@@ -1,6 +1,10 @@
 <?php
 namespace Jp\Jpfaq\Domain\Model;
 
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Annotation\Validate;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
 /***
  *
  * This file is part of the "JpFAQ" Extension for TYPO3 CMS.
@@ -11,11 +15,10 @@ namespace Jp\Jpfaq\Domain\Model;
  *  (c) 2018
  *
  ***/
-
 /**
  * Categorycomment
  */
-class Categorycomment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+class Categorycomment extends AbstractEntity
 {
     /**
      * name
@@ -35,7 +38,7 @@ class Categorycomment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * comment
      *
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
+     * @Validate("NotEmpty")
      */
     protected $comment = '';
 
@@ -56,8 +59,8 @@ class Categorycomment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * category
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Jp\Jpfaq\Domain\Model\Category>
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
+     * @var ObjectStorage<Category>
+     * @Lazy
      */
     protected $category = null;
 
@@ -80,7 +83,7 @@ class Categorycomment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     protected function initStorageObjects()
     {
-        $this->category = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->category = new ObjectStorage();
     }
 
     /**
@@ -170,10 +173,10 @@ class Categorycomment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Adds a Category
      *
-     * @param \Jp\Jpfaq\Domain\Model\Category $category
+     * @param Category $category
      * @return void
      */
-    public function addCategory(\Jp\Jpfaq\Domain\Model\Category $category)
+    public function addCategory(Category $category)
     {
         $this->category->attach($category);
     }
@@ -181,10 +184,10 @@ class Categorycomment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Removes a Category
      *
-     * @param \Jp\Jpfaq\Domain\Model\Category $categoryToRemove The Category to be removed
+     * @param Category $categoryToRemove The Category to be removed
      * @return void
      */
-    public function removeCategory(\Jp\Jpfaq\Domain\Model\Category $categoryToRemove)
+    public function removeCategory(Category $categoryToRemove)
     {
         $this->category->detach($categoryToRemove);
     }
@@ -192,7 +195,7 @@ class Categorycomment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the category
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Jp\Jpfaq\Domain\Model\Category> $category
+     * @return ObjectStorage<Category> $category
      */
     public function getCategory()
     {
@@ -202,7 +205,7 @@ class Categorycomment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the category
      *
-     * @param  \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Jp\Jpfaq\Domain\Model\Category> $category
+     * @param ObjectStorage<Category> $category
      * @return void
      */
     public function setCategory($category)
