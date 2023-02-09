@@ -1,11 +1,9 @@
 "use strict";
 
 function ajaxPost(loadUri, contentContainer) {
-
     var xhr = new XMLHttpRequest();
 
     return new Promise((resolve, reject) => {
-
         xhr.onreadystatechange = (e) => {
             if (xhr.readyState !== 4) {
                 return;
@@ -14,16 +12,48 @@ function ajaxPost(loadUri, contentContainer) {
             if (xhr.status === 200) {
                 resolve(xhr.responseText);
             } else {
-                console.warn('request_error');
+                reject(console.warn("request_error"));
             }
         };
 
-        xhr.open('POST', loadUri);
+        xhr.open("POST", loadUri);
         xhr.send();
-
     });
 }
 
+class rateAnswer {
+    constructor(rateEl) {
+        this.ratingBtn = rateEl;
+
+        this.initialize();
+    }
+
+    initialize() {
+        this.rate();
+    }
+
+    rate() {
+        this.ratingBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+            const jpfaqCommentPageType = "&type=88188";
+            const jpfaqQuestionHelpfulText = e.target.closest(
+                ".jpfaqQuestionHelpfulText"
+            );
+            const jpfaqQuestionCommentContainer = e.target.closest(
+                ".jpfaqQuestionCommentContainer"
+            );
+            const loadUri = e.target.getAttribute("href") + jpfaqCommentPageType;
+            ajaxPost(loadUri).then((response) => {
+                jpfaqQuestionCommentContainer.appendChild(
+                    document.createElement("div")
+                );
+                jpfaqQuestionCommentContainer.className = "jpfaqAddCommentForm";
+                jpfaqQuestionCommentContainer.innerHTML = response;
+                jpfaqQuestionHelpfulText.classList.add("d-none");
+            });
+        });
+    }
+}
 
 class AccordionItem {
     constructor(domNode) {
@@ -33,19 +63,42 @@ class AccordionItem {
         const controlsId = this.buttonEl.getAttribute("aria-controls");
         this.contentEl = document.getElementById(controlsId);
 
-        this.open = this.buttonEl.getAttribute("aria-expanded") === "true";
+        this.rateEl = this.rootEl.querySelectorAll(".jpfaq-rate");
 
-        this.rateEl = this.rootEl.querySelectorAll('.jpfaq-rate')
+        this.showHideEl = this.rootEl
+            .closest(".tx-jpfaq")
+            .querySelectorAll(".jpfaq-action");
 
-        // add event listeners
-        this.buttonEl.addEventListener("click", this.onButtonClick.bind(this));
-
-        this.initialize()
-        this.rateAnswer()
+        this.initialize();
     }
 
     initialize() {
-        // console.log(this.rateEl)
+        // add event listeners
+        this.buttonEl.addEventListener("click", this.onButtonClick.bind(this));
+
+        this.rateEl.forEach((elem) => {
+            new rateAnswer(elem);
+        });
+
+        this.showHideEl.forEach((elem) => {
+            elem.addEventListener("click", (e) => {
+                console.log(e.target.dataset.action);
+
+                const action = e.target.dataset.action;
+
+                // Todo: not nice to repeat show/collapse again
+                if (action == "collapse") {
+                    this.buttonEl.setAttribute("aria-expanded", "false");
+                    this.buttonEl.classList.add("collapsed");
+                    this.contentEl.classList.remove("show");
+                }
+                if (action == "show") {
+                    this.buttonEl.setAttribute("aria-expanded", "true");
+                    this.buttonEl.classList.remove("collapsed");
+                    this.contentEl.classList.add("show");
+                }
+            });
+        });
     }
 
     onButtonClick() {
@@ -63,35 +116,17 @@ class AccordionItem {
 
         // handle DOM updates
         instance.buttonEl.setAttribute("aria-expanded", open);
+        instance.buttonEl.classList.toggle("collapsed", !open);
         instance.contentEl.classList.toggle("show", open);
     }
 
     // Add public open and close methods for convenience
-    open() {
+    show() {
         AccordionItem.toggle(this, true);
     }
 
-    close() {
+    collapse() {
         AccordionItem.toggle(this, false);
-    }
-
-    rateAnswer() {
-
-        const jpfaqCommentPageType = '&type=88188';
-
-        this.rateEl.forEach((item) => {
-            item.addEventListener("click", function (e) {
-                e.preventDefault()
-                const loadUri = e.target.getAttribute('href') + jpfaqCommentPageType
-
-
-                
-                ajaxPost(loadUri).then(res => console.log("The result is", res));
-
-
-            });
-        })
-
     }
 }
 
@@ -112,11 +147,11 @@ class ListFilter {
         // this method is called when the class is instantiated, it is used for setting up initial state or logic
 
         // Prevent reload page on submit search
-        this.input.addEventListener('keypress', (e) => {
+        this.input.addEventListener("keypress", (e) => {
             if (e.keyCode == 13) {
-                e.preventDefault()
+                e.preventDefault();
             }
-        })
+        });
     }
 
     filter() {
@@ -130,12 +165,14 @@ class ListFilter {
 
             /*
              * Todo: showing? hiding? closing? Should be tested and optimized
-            */
+             */
             if (text.toUpperCase().indexOf(this.input.value.toUpperCase()) > -1) {
                 item.classList.remove("d-none");
             } else {
                 // if the text content does not contain the input value, add the class that hides the item
-                item.querySelector("button[aria-expanded]").setAttribute("aria-expanded", "false");
+                item
+                    .querySelector("button[aria-expanded]")
+                    .setAttribute("aria-expanded", "false");
                 item.querySelector(".collapse").classList.remove("show");
                 item.classList.add("d-none");
             }
@@ -143,18 +180,17 @@ class ListFilter {
     }
 }
 
-
 class Accordion {
     constructor(domNode) {
         this.rootEl = domNode;
 
         this.items = this.rootEl.querySelectorAll(".jpfaq-item");
         this.search = this.rootEl.querySelector(".jpfaq-search");
+
         this.initialize();
     }
 
     initialize() {
-        console.log(this);
         this.items.forEach((item) => {
             new AccordionItem(item);
         });
@@ -164,7 +200,6 @@ class Accordion {
 
 // init accordions
 const accordions = document.querySelectorAll(".tx-jpfaq");
-
-accordions.forEach((accordionEl) => {
-    new Accordion(accordionEl);
+accordions.forEach((elem) => {
+    new Accordion(elem);
 });

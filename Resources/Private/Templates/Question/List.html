@@ -8,21 +8,24 @@
     <f:if condition="{showSearchForm}">
         <f:render partial="SearchForm" arguments="{showNumberOfResults: showNumberOfResults, uid: currentUid}"/>
     </f:if>
-
-    <h2 class="jpfaqCategory" itemprop="about">
-        <f:for each="{categories}" as="category">{category.category}<br/></f:for>
-    </h2>
-
-    <div class="jpfaqAll">
-        <div class="jpfaqShowAll">
-            <f:translate key="jpfaq_showAll"/>
+    <div class="d-flex flex-column flex-md-row">
+        <div class="me-auto">
+            <h2 class="jpfaqCategory" itemprop="about">
+                <f:for each="{categories}" as="category">{category.category}<br/></f:for>
+            </h2>
         </div>
-        <div class="jpfaqHideAll">
-            <f:translate key="jpfaq_hideAll"/>
+        <div class="d-flex flex-row justify-content-end">
+            <button type="button" class="jpfaq-action btn btn-link" data-action="show">
+                <f:translate key="jpfaq_showAll"/>
+            </button>
+            <button type="button" class="jpfaq-action btn btn-link" data-action="collapse">
+                <f:translate key="jpfaq_hideAll"/>
+            </button>
         </div>
     </div>
 
-    <ul class="jpfaqList accordion">
+
+    <ul class="jpfaq-list accordion">
         <f:for each="{questions}" as="question">
 
             <n:excludeAlreadyDisplayedQuestions question="{question}"/>
